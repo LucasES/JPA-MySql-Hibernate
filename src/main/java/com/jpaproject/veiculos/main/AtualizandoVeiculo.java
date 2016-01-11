@@ -1,7 +1,5 @@
 package com.jpaproject.veiculos.main;
 
-import java.math.BigDecimal;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -18,9 +16,9 @@ public class AtualizandoVeiculo {
 		
 		Veiculo veiculo = manager.find(Veiculo.class, 1L);
 		
-		System.out.println("Valor atual: R$ " + veiculo.getValor());
-		veiculo.setValor(veiculo.getValor().add(new BigDecimal(500)));
-		System.out.println("Novo valor: R$ " + veiculo.getValor());
+		System.out.println("Ano atual: " + veiculo.getAnoModelo());
+		veiculo.setAnoModelo(2012);
+		System.out.println("Novo ano: " + veiculo.getAnoModelo());
 		
 		tx.commit();
 		manager.close();

@@ -1,16 +1,31 @@
 package com.jpaproject.veiculos.dominio;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+
 @Entity
 public class Veiculo {
+	
+	public enum TipoCombustivel {
+		ALCOOL,
+		GASOLINA,
+		DIESEL,
+		BIOCOMBUSTIVEL
+	}
 	
 	private Long codigo;
 	private String fabricante;
@@ -18,6 +33,10 @@ public class Veiculo {
 	private Integer anoFabricacao;
 	private Integer anoModelo;
 	private BigDecimal valor;
+	private TipoCombustivel tipoCombustivel;
+	private Date dataDeCadastra;
+	private String especificacoes;
+	private byte[] foto;
 	
 	public Veiculo() {
 		super();
@@ -77,6 +96,44 @@ public class Veiculo {
 		this.valor = valor;
 	}
 	
+	@Column(name = "tipo_combustivel", nullable = false)
+	@Enumerated(EnumType.STRING)
+	public TipoCombustivel getTipoCombustivel() {
+		return tipoCombustivel;
+	}
+
+	public void setTipoCombustivel(TipoCombustivel tipoCombustivel) {
+		this.tipoCombustivel = tipoCombustivel;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_cadastro", nullable = false)
+	public Date getDataDeCadastra() {
+		return dataDeCadastra;
+	}
+
+	public void setDataDeCadastra(Date dataDeCadastra) {
+		this.dataDeCadastra = dataDeCadastra;
+	}
+
+	@Lob	
+	public String getEspecificacoes() {
+		return especificacoes;
+	}
+
+	public void setEspecificacoes(String especificacoes) {
+		this.especificacoes = especificacoes;
+	}
+
+	@Lob
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,6 +157,13 @@ public class Veiculo {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}		
+	}
+	
+	@Transient
+	public String getDescricao() {
+		return this.getFabricante() + " " + this.getModelo()
+		+ " " + this.getAnoFabricacao() + "/" + this.getAnoModelo()
+		+ " por apenas " + this.getValor();
+	}
 	
 }
