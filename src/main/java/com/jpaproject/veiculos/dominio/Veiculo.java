@@ -2,11 +2,14 @@ package com.jpaproject.veiculos.dominio;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "tab_veiculo")
 public class Veiculo {
 
 	private Long codigo;
@@ -30,6 +33,7 @@ public class Veiculo {
 		this.codigo = codigo;
 	}
 	
+	@Column(length = 60, nullable = false)
 	public String getFabricante() {
 		return fabricante;
 	}
@@ -38,6 +42,7 @@ public class Veiculo {
 		this.fabricante = fabricante;
 	}
 	
+	@Column(length = 60, nullable = false)
 	public String getModelo() {
 		return modelo;
 	}
@@ -46,6 +51,7 @@ public class Veiculo {
 		this.modelo = modelo;
 	}
 	
+	@Column(name = "ano_fabricacao", nullable = false)
 	public Integer getAnoFabricacao() {
 		return anoFabricacao;
 	}
@@ -54,6 +60,7 @@ public class Veiculo {
 		this.anoFabricacao = anoFabricacao;
 	}
 	
+	@Column(name = "ano_modelo", nullable = false)
 	public Integer getAnoModelo() {
 		return anoModelo;
 	}
@@ -62,6 +69,7 @@ public class Veiculo {
 		this.anoModelo = anoModelo;
 	}
 	
+	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValor() {
 		return valor;
 	}
