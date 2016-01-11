@@ -2,13 +2,16 @@ package com.jpaproject.veiculos.dominio;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 public class Veiculo {
-
+	
 	private Long codigo;
 	private String fabricante;
 	private String modelo;
@@ -20,8 +23,12 @@ public class Veiculo {
 		super();
 	}
 	
+	//A inclusão do GenerationType.AUTO é optatíva, pois por default o JPA seta ele como AUTO
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "inc")
+	@GenericGenerator(name = "inc", strategy = "increment")
+	@Column(name = "cod_veiculo")
 	public Long getCodigo() {
 		return codigo;
 	}

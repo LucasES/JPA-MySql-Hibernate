@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import com.jpaproject.veiculos.dominio.Veiculo;
 import com.jpaproject.veiculos.util.JpaUtil;
 
-public class PersistindoVeiculo {
+public class SalvandoObjetosDesanexados {
 
 	public static void main(String[] args) {
 
@@ -16,20 +16,22 @@ public class PersistindoVeiculo {
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
 		
-		Veiculo veiculo = new Veiculo();
-		//Utilizando chaves compostas
-		//veiculo.setId(new VeiculoId("ABC-1234", "Uberlândia"));
-		veiculo.setFabricante("VW");
-		veiculo.setModelo("Gol");
-		veiculo.setAnoFabricacao(2009);
-		veiculo.setAnoModelo(2009);
-		veiculo.setValor(new BigDecimal(21000));
+		Veiculo veiculo = manager.find(Veiculo.class, 2L);
 		
-		manager.persist(veiculo);
+		tx.commit();
+		manager.close();
+		
+		veiculo.setValor(new BigDecimal(5000));
+		
+		manager = JpaUtil.getEntityManager();
+		tx = manager.getTransaction();
+		tx.begin();
+		
+		veiculo = manager.merge(veiculo);
 		
 		tx.commit();
 		manager.close();
 		JpaUtil.close();
-		
 	}
+
 }
