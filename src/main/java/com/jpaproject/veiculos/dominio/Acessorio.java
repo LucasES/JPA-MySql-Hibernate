@@ -1,9 +1,13 @@
 package com.jpaproject.veiculos.dominio;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +16,7 @@ public class Acessorio {
 
 	private Long codigo;
 	private String descricao;
+	private Set<Veiculo> veiculos = new HashSet<>();
 	
 	@Id
 	@GeneratedValue
@@ -30,6 +35,15 @@ public class Acessorio {
 	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	@ManyToMany(mappedBy = "acessorios")
+	public Set<Veiculo> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(Set<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
 
 	@Override
