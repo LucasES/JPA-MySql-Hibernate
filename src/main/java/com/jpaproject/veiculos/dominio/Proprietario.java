@@ -1,13 +1,18 @@
 package com.jpaproject.veiculos.dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +21,7 @@ public class Proprietario {
 
 	private Long codigo;	
 	private String nome;
-	private String telefone;
+	private List<Telefone> telefones = new ArrayList<>();
 	private String email;
 	private List<Veiculo> veiculos;
 
@@ -30,7 +35,7 @@ public class Proprietario {
 		this.codigo = codigo;
 	}
 
-	@Column(length = 60, nullable = false)
+	@Column(name = "nome", length = 60, nullable = false)
 	public String getNome() {
 		return nome;
 	}
@@ -39,15 +44,20 @@ public class Proprietario {
 		this.nome = nome;
 	}
 	
-	@Column(length = 20, nullable = false)
-	public String getTelefone() {
-		return telefone;
+
+	@ElementCollection
+	@CollectionTable(name = "proprietario_telefones",
+	joinColumns = @JoinColumn(name = "cod_proprietario"))
+	@AttributeOverrides({ @AttributeOverride(name = "numero",
+	column = @Column(name = "num_telefone", length = 20, nullable = false)) })
+	public List<Telefone> getTelefones() {
+		return telefones;
 	}
-	
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
-	
+
 	@Column(length = 255)
 	public String getEmail() {
 		return email;
@@ -66,50 +76,6 @@ public class Proprietario {
 	public void setVeiculos(List<Veiculo> veiculos) {
 		this.veiculos = veiculos;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Proprietario other = (Proprietario) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (telefone == null) {
-			if (other.telefone != null)
-				return false;
-		} else if (!telefone.equals(other.telefone))
-			return false;
-		return true;
-	}
-	
 	
 	
 }

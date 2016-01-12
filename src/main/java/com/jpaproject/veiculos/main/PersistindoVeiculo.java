@@ -12,6 +12,7 @@ import javax.persistence.EntityTransaction;
 
 import com.jpaproject.veiculos.dominio.Acessorio;
 import com.jpaproject.veiculos.dominio.Proprietario;
+import com.jpaproject.veiculos.dominio.Telefone;
 import com.jpaproject.veiculos.dominio.Veiculo;
 import com.jpaproject.veiculos.dominio.Veiculo.TipoCombustivel;
 import com.jpaproject.veiculos.util.JpaUtil;
@@ -252,7 +253,8 @@ public class PersistindoVeiculo {
 		
 		Proprietario proprietario = new Proprietario();
 		proprietario.setNome("Lucas Araújo");
-		proprietario.setTelefone("997487584");
+		proprietario.getTelefones().add(new Telefone("85", "9 9433-3888", null));
+		proprietario.getTelefones().add(new Telefone("85", "9 9422-3434", "104"));
 		
 		manager.persist(proprietario);
 		
