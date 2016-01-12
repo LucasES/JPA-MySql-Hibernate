@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -37,6 +40,7 @@ public class Veiculo {
 	private Date dataDeCadastra;
 	private String especificacoes;
 	private byte[] foto;
+	private Proprietario proprietario;
 	
 	public Veiculo() {
 		super();
@@ -56,6 +60,7 @@ public class Veiculo {
 		this.codigo = codigo;
 	}
 	
+	@Column(length = 60, nullable = false)
 	public String getFabricante() {
 		return fabricante;
 	}
@@ -64,6 +69,7 @@ public class Veiculo {
 		this.fabricante = fabricante;
 	}
 	
+	@Column(length = 60, nullable = false)
 	public String getModelo() {
 		return modelo;
 	}
@@ -72,6 +78,7 @@ public class Veiculo {
 		this.modelo = modelo;
 	}
 	
+	@Column(name = "ano_fabricacao", nullable = false)
 	public Integer getAnoFabricacao() {
 		return anoFabricacao;
 	}
@@ -80,6 +87,7 @@ public class Veiculo {
 		this.anoFabricacao = anoFabricacao;
 	}
 	
+	@Column(name = "ano_modelo", nullable = false)
 	public Integer getAnoModelo() {
 		return anoModelo;
 	}
@@ -88,6 +96,7 @@ public class Veiculo {
 		this.anoModelo = anoModelo;
 	}
 	
+	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -132,6 +141,16 @@ public class Veiculo {
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
+	}
+	
+	@OneToOne(optional = false)
+	@JoinColumn(name = "cod_proprietario")
+	public Proprietario getProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(Proprietario proprietario) {
+		this.proprietario = proprietario;
 	}
 
 	@Override
