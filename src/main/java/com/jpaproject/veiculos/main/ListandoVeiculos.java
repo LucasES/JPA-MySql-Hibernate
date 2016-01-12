@@ -43,23 +43,37 @@ public class ListandoVeiculos {
 //		JpaUtil.close();	
 		
 		
-		//Esta consulta realiza um inner join ou left join, realizando somente um select.
+		//Esta consulta realiza um inner join ou left join, realizando somente um select. CONSULTA REALIZADA PARA LISTAR EM MAPEAMENTO UM PARA UM.
 		
-		EntityManager manager = JpaUtil.getEntityManager();
-		
+//		EntityManager manager = JpaUtil.getEntityManager();
+//		
 //		Veiculo veiculo = manager.find(Veiculo.class, 1L);
-		
-		
+//		
+//		
 //		System.out.println(veiculo.getModelo() + " - "
 //				+ veiculo.getProprietario().getNome());
-
+//
+//		Proprietario proprietario = manager.find(Proprietario.class, 1L);
+//		System.out.println(proprietario.getVeiculo().getModelo() + " - "
+//				+ proprietario.getNome());
+//		
+//		manager.close();
+//		JpaUtil.close();
+		
+		
+		//Consultando um proprietario e listando todos os seus carros. CONSULTA REALIZADA NA RELAÇÃO UM PARA MUITOS ENTRE VEÍCULO E PROPRIETÁRIO.
+		EntityManager manager = JpaUtil.getEntityManager();
+		
 		Proprietario proprietario = manager.find(Proprietario.class, 1L);
-		System.out.println(proprietario.getVeiculo().getModelo() + " - "
-				+ proprietario.getNome());
+		
+		System.out.println("Proprietario: " + proprietario.getNome());
+		
+		for (Veiculo veiculo : proprietario.getVeiculos()) {
+			System.out.println("Veículo: " + veiculo.getModelo());
+		}
 		
 		manager.close();
 		JpaUtil.close();
-		
 	}
 
 }

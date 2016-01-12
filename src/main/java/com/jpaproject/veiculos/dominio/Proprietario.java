@@ -1,9 +1,12 @@
 package com.jpaproject.veiculos.dominio;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,7 +18,7 @@ public class Proprietario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private Veiculo veiculo;
+	private List<Veiculo> veiculos;
 
 	@Id
 	@GeneratedValue
@@ -54,13 +57,14 @@ public class Proprietario {
 		this.email = email;
 	}
 
-	@OneToOne(mappedBy = "proprietario")
-	public Veiculo getVeiculo() {
-		return veiculo;
+
+	@OneToMany(mappedBy = "proprietario")
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
 	}
 
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
 
 	@Override

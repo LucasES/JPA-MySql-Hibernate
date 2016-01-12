@@ -2,6 +2,8 @@ package com.jpaproject.veiculos.dominio;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -11,7 +13,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,14 +27,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Veiculo {
-	
+
 	public enum TipoCombustivel {
 		ALCOOL,
 		GASOLINA,
 		DIESEL,
 		BIOCOMBUSTIVEL
 	}
-	
+
 	private Long codigo;
 	private String fabricante;
 	private String modelo;
@@ -41,11 +46,12 @@ public class Veiculo {
 	private String especificacoes;
 	private byte[] foto;
 	private Proprietario proprietario;
-	
+	private Set<Acessorio> acessorios = new HashSet<>();
+
 	public Veiculo() {
 		super();
 	}
-	
+
 	//A inclusão do GenerationType.AUTO é optatíva, pois por default o JPA seta ele como AUTO
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
@@ -55,56 +61,56 @@ public class Veiculo {
 	public Long getCodigo() {
 		return codigo;
 	}
-	
+
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-	
+
 	@Column(length = 60, nullable = false)
 	public String getFabricante() {
 		return fabricante;
 	}
-	
+
 	public void setFabricante(String fabricante) {
 		this.fabricante = fabricante;
 	}
-	
+
 	@Column(length = 60, nullable = false)
 	public String getModelo() {
 		return modelo;
 	}
-	
+
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-	
+
 	@Column(name = "ano_fabricacao", nullable = false)
 	public Integer getAnoFabricacao() {
 		return anoFabricacao;
 	}
-	
+
 	public void setAnoFabricacao(Integer anoFabricacao) {
 		this.anoFabricacao = anoFabricacao;
 	}
-	
+
 	@Column(name = "ano_modelo", nullable = false)
 	public Integer getAnoModelo() {
 		return anoModelo;
 	}
-	
+
 	public void setAnoModelo(Integer anoModelo) {
 		this.anoModelo = anoModelo;
 	}
-	
+
 	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValor() {
 		return valor;
 	}
-	
+
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-	
+
 	@Column(name = "tipo_combustivel", nullable = false)
 	@Enumerated(EnumType.STRING)
 	public TipoCombustivel getTipoCombustivel() {
@@ -142,8 +148,8 @@ public class Veiculo {
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
-	
-	@OneToOne(optional = false)
+
+	@ManyToOne
 	@JoinColumn(name = "cod_proprietario")
 	public Proprietario getProprietario() {
 		return proprietario;
@@ -153,6 +159,18 @@ public class Veiculo {
 		this.proprietario = proprietario;
 	}
 
+	@ManyToMany
+	@JoinTable(name = "veiculo_acessorios",
+	joinColumns = @JoinColumn(name = "cod_veiculo"),
+	inverseJoinColumns = @JoinColumn (name = "cod_acessorio"))
+	public Set<Acessorio> getAcessorios() {
+		return acessorios;
+	}
+
+	public void setAcessorios(Set<Acessorio> acessorios) {
+		this.acessorios = acessorios;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -160,7 +178,7 @@ public class Veiculo {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -177,12 +195,12 @@ public class Veiculo {
 			return false;
 		return true;
 	}
-	
+
 	@Transient
 	public String getDescricao() {
 		return this.getFabricante() + " " + this.getModelo()
 		+ " " + this.getAnoFabricacao() + "/" + this.getAnoModelo()
 		+ " por apenas " + this.getValor();
 	}
-	
+
 }
