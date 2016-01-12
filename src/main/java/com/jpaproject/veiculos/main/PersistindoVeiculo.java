@@ -87,7 +87,7 @@ public class PersistindoVeiculo {
 		
 		//Persistência de dados utilizando a relação de um para um de proprietário com veiculo.
 		
-		Path path = FileSystems.getDefault().getPath("img/ix35.jpg");
+		Path path = FileSystems.getDefault().getPath("img/golf-2015.jpg");
 		byte[] foto = null;
 		
 		try {
@@ -103,8 +103,8 @@ public class PersistindoVeiculo {
 		
 		StringBuilder especificacoes = new StringBuilder();
 		
-		especificacoes.append("Carro em excelente estado.\n");
-		especificacoes.append("Completo, menos ar.\n");
+		especificacoes.append("Carro Novo.\n");
+		especificacoes.append("Completo.\n");
 		especificacoes.append("Primeiro dono, com manual de instrução ");
 		especificacoes.append("e todas as revisões feitas.\n");
 		especificacoes.append("IPVA pago, aceita financiamento.");
@@ -118,11 +118,11 @@ public class PersistindoVeiculo {
 		Veiculo veiculo = new Veiculo();
 		//Utilizando chaves compostas
 		//veiculo.setId(new VeiculoId("ABC-1234", "Uberlândia"));
-		veiculo.setFabricante("Hyundai");
-		veiculo.setModelo("Ix35");
-		veiculo.setAnoFabricacao(2010);
-		veiculo.setAnoModelo(2010);
-		veiculo.setValor(new BigDecimal(77_200));
+		veiculo.setFabricante("VW");
+		veiculo.setModelo("Golf");
+		veiculo.setAnoFabricacao(2015);
+		veiculo.setAnoModelo(2015);
+		veiculo.setValor(new BigDecimal(99_200));
 		veiculo.setTipoCombustivel(TipoCombustivel.BIOCOMBUSTIVEL);
 		veiculo.setDataDeCadastra(new Date());
 		veiculo.setEspecificacoes(especificacoes.toString());

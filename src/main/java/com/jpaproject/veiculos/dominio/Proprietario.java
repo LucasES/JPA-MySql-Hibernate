@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +15,7 @@ public class Proprietario {
 	private String nome;
 	private String telefone;
 	private String email;
+	private Veiculo veiculo;
 
 	@Id
 	@GeneratedValue
@@ -50,6 +52,15 @@ public class Proprietario {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@OneToOne(mappedBy = "proprietario")
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
 
 	@Override
