@@ -1,6 +1,10 @@
 package com.jpaproject.veiculos.main;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -13,7 +17,17 @@ import com.jpaproject.veiculos.util.JpaUtil;
 public class PersistindoVeiculo {
 
 	public static void main(String[] args) {
-
+		
+		Path path = FileSystems.getDefault().getPath("img/ix35.jpg");
+		byte[] foto = null;
+		
+		try {
+			foto = Files.readAllBytes(path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		EntityManager manager = JpaUtil.getEntityManager();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
@@ -30,13 +44,14 @@ public class PersistindoVeiculo {
 		//Utilizando chaves compostas
 		//veiculo.setId(new VeiculoId("ABC-1234", "Uberlândia"));
 		veiculo.setFabricante("Hyundai");
-		veiculo.setModelo("Gol");
+		veiculo.setModelo("Ix35");
 		veiculo.setAnoFabricacao(2010);
 		veiculo.setAnoModelo(2010);
-		veiculo.setValor(new BigDecimal(17_200));
+		veiculo.setValor(new BigDecimal(77_200));
 		veiculo.setTipoCombustivel(TipoCombustivel.BIOCOMBUSTIVEL);
 		veiculo.setDataDeCadastra(new Date());
 		veiculo.setEspecificacoes(especificacoes.toString());
+		veiculo.setFoto(foto);
 		
 		manager.persist(veiculo);
 		
