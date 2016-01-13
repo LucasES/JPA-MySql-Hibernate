@@ -1,5 +1,6 @@
 package com.jpaproject.veiculos.dominio;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,8 @@ public class Produto {
 		this.nome = nome;
 	}
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	//Quando tem o CascadeType.PERSIST quando eu persistir um produto ele automaticamente já persisti uma categoria que está instânciada na classe.
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	public Categoria getCategoria() {
 		return categoria;
 	}

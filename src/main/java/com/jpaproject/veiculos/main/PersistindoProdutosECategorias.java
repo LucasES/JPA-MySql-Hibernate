@@ -12,33 +12,64 @@ public class PersistindoProdutosECategorias {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+//		EntityManager manager = JpaUtil.getEntityManager();
+//		EntityTransaction tx = manager.getTransaction();
+//		tx.begin();
+//		
+//		Categoria categoria = new Categoria();
+//		categoria.setNome("Bebidas");
+//		
+//		Produto produto1 = new Produto();
+//		produto1.setNome("Red Label");
+//		produto1.setCategoria(categoria);
+//		
+//		Produto produto2 = new Produto();
+//		produto2.setNome("Ballantines");
+//		produto2.setCategoria(categoria);
+//		
+//		Produto produto3 = new Produto();
+//		produto3.setNome("Old par");
+//		produto3.setCategoria(categoria);
+//		
+//		manager.persist(categoria);
+//		manager.persist(produto1);
+//		manager.persist(produto2);
+//		manager.persist(produto3);
+//		
+//		tx.commit();
+//		manager.close();
+//		JpaUtil.close();
+		
+		//Persistência utilizando o CascadeType.PERSIST, logo não precisa persistir cada categoria quando persistir um produto ou mais.
+
 		EntityManager manager = JpaUtil.getEntityManager();
 		EntityTransaction tx = manager.getTransaction();
 		tx.begin();
-		
+
+//		Categoria categoria = new Categoria();
+//		categoria.setNome("Bebidas");
+//		
+//		Produto produto = new Produto();
+//		produto.setNome("Refrigerante");
+//		produto.setCategoria(categoria);
+//		
+//		manager.persist(produto);
+
 		Categoria categoria = new Categoria();
-		categoria.setNome("Bebidas");
+		categoria.setNome("Frios");
 		
-		Produto produto1 = new Produto();
-		produto1.setNome("Red Label");
-		produto1.setCategoria(categoria);
+		Produto produto = new Produto();
+		produto.setNome("Danoninho");
+		produto.setCategoria(categoria);
 		
-		Produto produto2 = new Produto();
-		produto2.setNome("Ballantines");
-		produto2.setCategoria(categoria);
-		
-		Produto produto3 = new Produto();
-		produto3.setNome("Old par");
-		produto3.setCategoria(categoria);
+		categoria.getProdutos().add(produto);
 		
 		manager.persist(categoria);
-		manager.persist(produto1);
-		manager.persist(produto2);
-		manager.persist(produto3);
 		
 		tx.commit();
 		manager.close();
 		JpaUtil.close();
+
 		
 	}
 
