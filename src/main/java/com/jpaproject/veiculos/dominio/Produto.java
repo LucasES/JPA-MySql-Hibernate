@@ -37,7 +37,8 @@ public class Produto {
 	}
 	
 	//Quando tem o CascadeType.PERSIST quando eu persistir um produto ele automaticamente já persisti uma categoria que está instânciada na classe.
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	//, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST linha removida a partir do capitulo 5.3
+	@ManyToOne(optional = false)
 	public Categoria getCategoria() {
 		return categoria;
 	}
