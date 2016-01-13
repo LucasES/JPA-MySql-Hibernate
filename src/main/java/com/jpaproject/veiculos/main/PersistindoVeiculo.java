@@ -12,9 +12,8 @@ import javax.persistence.EntityTransaction;
 
 import com.jpaproject.veiculos.dominio.Acessorio;
 import com.jpaproject.veiculos.dominio.Proprietario;
-import com.jpaproject.veiculos.dominio.Telefone;
+import com.jpaproject.veiculos.dominio.TipoCombustivel;
 import com.jpaproject.veiculos.dominio.Veiculo;
-import com.jpaproject.veiculos.dominio.Veiculo.TipoCombustivel;
 import com.jpaproject.veiculos.util.JpaUtil;
 
 public class PersistindoVeiculo {
@@ -27,7 +26,7 @@ public class PersistindoVeiculo {
 //		try {
 //			foto = Files.readAllBytes(path);
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
+//			
 //			e.printStackTrace();
 //		}
 //		
@@ -253,8 +252,9 @@ public class PersistindoVeiculo {
 		
 		Proprietario proprietario = new Proprietario();
 		proprietario.setNome("Lucas Araújo");
-		proprietario.getTelefones().add(new Telefone("85", "9 9433-3888", null));
-		proprietario.getTelefones().add(new Telefone("85", "9 9422-3434", "104"));
+		proprietario.setTelefone("(85) 9 97487581");
+//		proprietario.getTelefones().add(new Telefone("85", "9 9433-3888", null));
+//		proprietario.getTelefones().add(new Telefone("85", "9 9422-3434", "104"));
 		
 		manager.persist(proprietario);
 		
@@ -284,8 +284,8 @@ public class PersistindoVeiculo {
 		veiculo.setAnoFabricacao(2015);
 		veiculo.setAnoModelo(2015);
 		veiculo.setValor(new BigDecimal(99_200));
-		veiculo.setTipoCombustivel(TipoCombustivel.BIOCOMBUSTIVEL);
-		veiculo.setDataDeCadastra(new Date());
+		veiculo.setTipoCombustivel(TipoCombustivel.BICOMBUSTIVEL);
+		veiculo.setDataCadastro(new Date());
 		veiculo.setEspecificacoes(especificacoes.toString());
 		veiculo.setFoto(foto);
 		veiculo.setProprietario(proprietario);
@@ -302,8 +302,8 @@ public class PersistindoVeiculo {
 		veiculo2.setAnoFabricacao(2015);
 		veiculo2.setAnoModelo(2015);
 		veiculo2.setValor(new BigDecimal(99_200));
-		veiculo2.setTipoCombustivel(TipoCombustivel.BIOCOMBUSTIVEL);
-		veiculo2.setDataDeCadastra(new Date());
+		veiculo2.setTipoCombustivel(TipoCombustivel.BICOMBUSTIVEL);
+		veiculo2.setDataCadastro(new Date());
 		veiculo2.setFoto(foto2);
 		veiculo2.setProprietario(proprietario);
 		veiculo2.getAcessorios().add(alarme);

@@ -16,16 +16,16 @@ public class ListarTelefonesProprietario {
 		System.out.println("Proprietario: " + proprietario.getNome());
 		
 //		Utilizado quando não se utiliza a classe Telefone utilizando a anotação @Embeddable
-//		for (String telefones : proprietario.getTelefones()) {
+//		for (String telefones : proprietario.getTelefone()) {
 //			System.out.println("Telefone: " + telefones);
 //		}
 		
 		//Listando os telefones que estão na classe embutida
 		
-		for (Telefone telefone : proprietario.getTelefones()) {
-			System.out.println("Telefone: (" + telefone.getPrefixo() + ") "
-					+ telefone.getNumero()
-					+ (telefone.getRamal() != null ? " x" + telefone.getRamal() : ""));
-		}
+//		for (Telefone telefone : proprietario.getTelefones()) {
+//			System.out.println("Telefone: (" + telefone.getPrefixo() + ") "
+//					+ telefone.getNumero()
+//					+ (telefone.getRamal() != null ? " x" + telefone.getRamal() : ""));
+//		}
 	}
 }

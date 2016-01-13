@@ -13,9 +13,9 @@ public class BuscandoVeiculo1 {
 		
 		Veiculo veiculo = manager.find(Veiculo.class, 1L);
 		
-		System.out.println("Veículo: "+ veiculo.getModelo());
-		System.out.println("------");
-		System.out.println(veiculo.getEspecificacoes());
+//		System.out.println("Veículo: "+ veiculo.getModelo());
+//		System.out.println("------");
+//		System.out.println(veiculo.getEspecificacoes());
 		
 		manager.close();
 		JpaUtil.close();

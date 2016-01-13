@@ -3,6 +3,7 @@ package com.jpaproject.veiculos.dominio;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Acessorio {
 		this.descricao = descricao;
 	}
 	
-	@ManyToMany(mappedBy = "acessorios")
+	@ManyToMany(mappedBy = "acessorios", cascade = CascadeType.PERSIST)
 	public Set<Veiculo> getVeiculos() {
 		return veiculos;
 	}

@@ -1,6 +1,7 @@
 package com.jpaproject.veiculos.dominio;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -26,14 +28,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
+@Table(name = "veiculo")
 public class Veiculo {
-
-	public enum TipoCombustivel {
-		ALCOOL,
-		GASOLINA,
-		DIESEL,
-		BIOCOMBUSTIVEL
-	}
 
 	private Long codigo;
 	private String fabricante;
@@ -42,7 +38,7 @@ public class Veiculo {
 	private Integer anoModelo;
 	private BigDecimal valor;
 	private TipoCombustivel tipoCombustivel;
-	private Date dataDeCadastra;
+	private Date dataCadastro;
 	private String especificacoes;
 	private byte[] foto;
 	private Proprietario proprietario;
@@ -55,9 +51,10 @@ public class Veiculo {
 	//A inclusão do GenerationType.AUTO é optatíva, pois por default o JPA seta ele como AUTO
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
-	@GeneratedValue(generator = "inc")
-	@GenericGenerator(name = "inc", strategy = "increment")
-	@Column(name = "cod_veiculo")
+	@GeneratedValue
+	//@GeneratedValue(generator = "inc")
+	//@GenericGenerator(name = "inc", strategy = "increment")
+	//@Column(name = "cod_veiculo")
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -123,12 +120,12 @@ public class Veiculo {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_cadastro", nullable = false)
-	public Date getDataDeCadastra() {
-		return dataDeCadastra;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setDataDeCadastra(Date dataDeCadastra) {
-		this.dataDeCadastra = dataDeCadastra;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	@Lob	
@@ -162,7 +159,7 @@ public class Veiculo {
 	@ManyToMany
 	@JoinTable(name = "veiculo_acessorios",
 	joinColumns = @JoinColumn(name = "cod_veiculo"),
-	inverseJoinColumns = @JoinColumn (name = "cod_acessorio"))
+	inverseJoinColumns = @JoinColumn(name = "cod_acessorio"))
 	public Set<Acessorio> getAcessorios() {
 		return acessorios;
 	}
@@ -171,11 +168,29 @@ public class Veiculo {
 		this.acessorios = acessorios;
 	}
 
+//	@Transient
+//	public String getDescricao() {
+//		return this.getFabricante() + " " + this.getModelo()
+//		+ " " + this.getAnoFabricacao() + "/" + this.getAnoModelo()
+//		+ " por apenas " + this.getValor();
+//	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((acessorios == null) ? 0 : acessorios.hashCode());
+		result = prime * result + ((anoFabricacao == null) ? 0 : anoFabricacao.hashCode());
+		result = prime * result + ((anoModelo == null) ? 0 : anoModelo.hashCode());
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
+		result = prime * result + ((especificacoes == null) ? 0 : especificacoes.hashCode());
+		result = prime * result + ((fabricante == null) ? 0 : fabricante.hashCode());
+		result = prime * result + Arrays.hashCode(foto);
+		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
+		result = prime * result + ((proprietario == null) ? 0 : proprietario.hashCode());
+		result = prime * result + ((tipoCombustivel == null) ? 0 : tipoCombustivel.hashCode());
+		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
 	}
 
@@ -188,19 +203,63 @@ public class Veiculo {
 		if (getClass() != obj.getClass())
 			return false;
 		Veiculo other = (Veiculo) obj;
+		if (acessorios == null) {
+			if (other.acessorios != null)
+				return false;
+		} else if (!acessorios.equals(other.acessorios))
+			return false;
+		if (anoFabricacao == null) {
+			if (other.anoFabricacao != null)
+				return false;
+		} else if (!anoFabricacao.equals(other.anoFabricacao))
+			return false;
+		if (anoModelo == null) {
+			if (other.anoModelo != null)
+				return false;
+		} else if (!anoModelo.equals(other.anoModelo))
+			return false;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
+		if (dataCadastro == null) {
+			if (other.dataCadastro != null)
+				return false;
+		} else if (!dataCadastro.equals(other.dataCadastro))
+			return false;
+		if (especificacoes == null) {
+			if (other.especificacoes != null)
+				return false;
+		} else if (!especificacoes.equals(other.especificacoes))
+			return false;
+		if (fabricante == null) {
+			if (other.fabricante != null)
+				return false;
+		} else if (!fabricante.equals(other.fabricante))
+			return false;
+		if (!Arrays.equals(foto, other.foto))
+			return false;
+		if (modelo == null) {
+			if (other.modelo != null)
+				return false;
+		} else if (!modelo.equals(other.modelo))
+			return false;
+		if (proprietario == null) {
+			if (other.proprietario != null)
+				return false;
+		} else if (!proprietario.equals(other.proprietario))
+			return false;
+		if (tipoCombustivel != other.tipoCombustivel)
+			return false;
+		if (valor == null) {
+			if (other.valor != null)
+				return false;
+		} else if (!valor.equals(other.valor))
+			return false;
 		return true;
 	}
-
-	@Transient
-	public String getDescricao() {
-		return this.getFabricante() + " " + this.getModelo()
-		+ " " + this.getAnoFabricacao() + "/" + this.getAnoModelo()
-		+ " por apenas " + this.getValor();
-	}
+	
+	
 
 }

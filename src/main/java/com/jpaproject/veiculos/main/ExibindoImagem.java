@@ -21,17 +21,17 @@ public class ExibindoImagem {
 		
 		Veiculo veiculo = manager.find(Veiculo.class, 1L);
 		
-		if(veiculo.getFoto() != null) {
-			BufferedImage img = null; 
-			try {
-				img = ImageIO.read(new ByteArrayInputStream(veiculo.getFoto()));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(img)));
-		} else {
-			System.out.println("Veiculo não possui foto.");
-		}
+//		if(veiculo.getFoto() != null) {
+//			BufferedImage img = null; 
+//			try {
+//				img = ImageIO.read(new ByteArrayInputStream(veiculo.getFoto()));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(img)));
+//		} else {
+//			System.out.println("Veiculo não possui foto.");
+//		}
 		
 		manager.close();
 		JpaUtil.close();
