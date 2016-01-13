@@ -39,7 +39,7 @@ public class Categoria {
 		this.nome = nome;
 	}
 	
-	@OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
