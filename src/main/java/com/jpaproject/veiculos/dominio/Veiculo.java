@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,17 +17,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
-
 
 @Entity
 @Table(name = "veiculo")
+@NamedQueries({
+	@NamedQuery(name = "Veiculo.comProprietarioPorValor",
+			query = "from Veiculo v inner join fetch v.proprietario where v.valor > :valor"),
+	@NamedQuery(name = "Veiculo.porModelo",
+	query = "from Veiculo where modelo like :modelo")})
 public class Veiculo {
 
 	private Long codigo;
@@ -168,12 +169,12 @@ public class Veiculo {
 		this.acessorios = acessorios;
 	}
 
-//	@Transient
-//	public String getDescricao() {
-//		return this.getFabricante() + " " + this.getModelo()
-//		+ " " + this.getAnoFabricacao() + "/" + this.getAnoModelo()
-//		+ " por apenas " + this.getValor();
-//	}
+	//	@Transient
+	//	public String getDescricao() {
+	//		return this.getFabricante() + " " + this.getModelo()
+	//		+ " " + this.getAnoFabricacao() + "/" + this.getAnoModelo()
+	//		+ " por apenas " + this.getValor();
+	//	}
 
 	@Override
 	public int hashCode() {
@@ -259,7 +260,7 @@ public class Veiculo {
 			return false;
 		return true;
 	}
-	
-	
+
+
 
 }
